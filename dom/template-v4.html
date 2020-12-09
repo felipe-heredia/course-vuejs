@@ -1,0 +1,22 @@
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<div id="app">
+  <p>{{ title }}</p>
+  <p>{{ salutation() }}</p>
+  <a v-bind:href="link">Blog felipesuri</a>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      title: 'Usando VueJS!',
+      link: 'https://felipesuri.com'
+    },
+    methods: {
+      salutation() {
+        return this.title
+      }
+    }
+  })
+</script>
