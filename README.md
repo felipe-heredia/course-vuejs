@@ -146,3 +146,25 @@ Para modificarmos o valor de um _data_ na instância do Vue através de um input
 <input  type="text"  v-model="title">
 ```
 
+**Aula 29 - Propriedades computadas**
+
+No conceito de methods dentro do Vue, sempre que qualquer coisa mudar na instância, esse método será executado novamente. Já dentro da propriedade _computed_, ele é executado apenas quando é chamado. Isso pode ajudar bastante na performance da aplicação.
+
+```html
+<div  id="app">
+  <p>Resultado: {{ result }}</p>
+</div>  
+
+<script>
+new Vue({
+  el: '#app',
+  computed: {
+    result() {
+      return  this.counter >=  5  ?  'Maior ou igual a 5'  :  'Menor que 5'
+    }
+  },
+})
+</script>
+```
+
+Neste caso, como podemos ver, mesmo o _computed_ sendo uma função, ele é chamado de forma normal, sem as parenteses.
