@@ -203,3 +203,35 @@ Existe uma forma mais fácil de chamar o _v-bind_ e o _v-on_.
 ```
 
 Assim, o **@** significa que estamos chamando o _v-on_ e os **:** significa que estamos chamando o _v-bind_
+
+**Desafio 03 - Propriedades reativas**
+
+Neste desafio, devemos fazer os seguintes passos:
+
+1. Exibir em "resultado" o texto 'Valor Diferente' enquanto "value" for diferente de 22 - "value" é alterado pelos botões. Mostrar 'Valor Igual' quando "value" for igual a 22.
+2. Monitorar as mudança de "result" e reiniciar "value" para 0 depois de 5 segundos (dica: setTimeout(..., 5000).
+
+Resolvi esse desafio da seguinte forma:
+
+```javascript
+new  Vue({
+  el:  '#challenge',
+  data: {
+    value:  0
+  },
+  computed: {
+    result() {
+      return  this.value ===  22  ?  'Igual á 22'  :  'Diferente 22'
+    }
+  },
+  watch: {
+    result() {
+      setTimeout(() => {
+        this.value =  0
+      }, 5000)
+    }
+  }
+});
+```
+
+Aqui, está apenas o código javascript, [você pode ver o código completo do desafio aqui.](dom/desafio-03)

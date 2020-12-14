@@ -1,0 +1,19 @@
+<script src="https://unpkg.com/vue"></script>
+
+<div id="challenge">
+  <!-- 1) Exibir em "result" o texto 'Valor Diferente' enquanto
+    "valor" for diferente de 22 - "valor" é alterado pelos botões.
+    Mostrar 'Valor Igual' quando "valor" for igual a 22 -->
+
+  <!-- 2) Monitorar as mudança de "result" e reiniciar "valor"
+    para 0 depois de 5 segundos (dica: setTimeout(..., 5000) -->
+
+  <div>
+    <p>Valor atual: {{ value }}</p>
+    <button @click="value += 5">Somar 5</button>
+    <button @click="value += 1">Somar 1</button>
+    <p>{{ result }}</p>
+  </div>
+</div>
+
+<script src="app.js"></script>
