@@ -137,3 +137,12 @@ Sem precisar chamar uma função, também podemos modificar o valor, da seguinte
 **Aula 27 - Código JS no Template**
 
 Expressões JS simples, expressões de uma linha funcionam dentro do HTML, porém coisas com um if, for, while e etc, isso não devem ser colocados no HTML e sim externamente, com um método por exemplo.
+
+**Aula 28 - Usando Two-Way-Binding**
+
+Para modificarmos o valor de um _data_ na instância do Vue através de um input por exemplo, não precisamos utilizar v-bind e v-on, podemos utilizar uma única propriedade (a _v-model_) passando a variável que queremos manipular.
+
+```html
+<input  type="text"  v-model="title">
+```
+
