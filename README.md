@@ -133,3 +133,7 @@ Mais um desafio, que é simples. Primeiro, quando clicar em um botão, preciso m
 Sem precisar chamar uma função, também podemos modificar o valor, da seguinte forma `value = $event.target.value`, no lugar da função, vai simplesmente isso.
 
 [Você pode ver o código aqui.](dom/desafio-01)
+
+**Aula 27 - Código JS no Template**
+
+Expressões JS simples, expressões de uma linha funcionam dentro do HTML, porém coisas com um if, for, while e etc, isso não devem ser colocados no HTML e sim externamente, com um método por exemplo.
