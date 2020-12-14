@@ -188,3 +188,18 @@ watch: {
 Neste caso, o nome da função deve ser o nome da variável que queremos assistir, e como podemos ver, recebemos o valor antigo e o novo como propriedades.
 
 Utilizamos uma Arrow Function, pois o this não funcionaria, poderíamos abistrair o this no escopo acima, porém, é possível utilizar o this como uma arrow function, vai da sua escolha com qual deseja utilizar.
+
+**Aula 31 - Sintaxe Reduzida (Shorthands)**
+
+Existe uma forma mais fácil de chamar o _v-bind_ e o _v-on_.
+
+```html
+<div  id="app">
+  <p>{{ counter }}</p>
+  <button @click="add">+1</button>
+  <hr/>
+  <input  type="text" :value="counter">
+</div>
+```
+
+Assim, o **@** significa que estamos chamando o _v-on_ e os **:** significa que estamos chamando o _v-bind_
