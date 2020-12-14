@@ -168,3 +168,23 @@ new Vue({
 ```
 
 Neste caso, como podemos ver, mesmo o _computed_ sendo uma função, ele é chamado de forma normal, sem as parenteses.
+
+Em propriedades computadas, você obrigatóriamente precisa retornar o valor.
+
+**Aula 30 - Monitorando Mudanças**
+
+Mais uma propriedade da instância do Vue, o _watch_, neste caso, podemos duplicar os nomes, na verdade, devemos, pois ele irá assistir um determinado _data_.
+
+```js
+watch: {
+ counter(newValue, oldValue) {
+    setTimeout(() => {
+      this.counter =  0
+    }, 2000)
+ }
+}
+```
+
+Neste caso, o nome da função deve ser o nome da variável que queremos assistir, e como podemos ver, recebemos o valor antigo e o novo como propriedades.
+
+Utilizamos uma Arrow Function, pois o this não funcionaria, poderíamos abistrair o this no escopo acima, porém, é possível utilizar o this como uma arrow function, vai da sua escolha com qual deseja utilizar.
