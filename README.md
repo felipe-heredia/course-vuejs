@@ -235,3 +235,39 @@ new  Vue({
 ```
 
 Aqui, está apenas o código javascript, [você pode ver o código completo do desafio aqui.](dom/desafio-03)
+
+**Aula 37 - Estilo dinâmico sem classe CSS**
+
+Passar estilos como propriedades de uma tag é algo parecido como no React, veja os exemplos abaixo:
+
+```html
+<div class="demo" :style="{ backgroundColor: color }"></div>
+<div class="demo" :style="[myStyle, { height: height }]"></div>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    color: 'red',
+    width:  100,
+    height:  120
+  },
+  computed: {
+    myStyle() {
+      return { backgroundColor: this.color, width: `${this.width}px` }
+    }
+  }
+})
+</script>
+```
+
+Podemos tanto passar o estilo inline utilizando camelcase, que é o caso da primeira div.
+Como também, podemos passar o estilo através da instância do Vue, como é o caso de uma instância computada.
+Na segunda div mesclamos entre camelcase e através da instância, isso é bem simples.
+
+**Desafio 04 - Estilo**
+
+Foram feitos diversos mini-desafios baseados nas aulas anteriores de Estilos.
+
+[Você pode ver o código feito aqui.](/dom/desafio-04)
+

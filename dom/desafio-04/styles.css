@@ -1,0 +1,52 @@
+#efeito {
+	width: 100px;
+	height: 100px;
+	border: 1px solid black;
+}
+
+.destaque {
+	background-color: red;
+	width: 200px !important;
+}
+
+.encolher {
+	background-color: gray;
+	width: 50px !important;
+}
+
+.warning {
+  background: yellow;
+}
+
+.circle {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.right {
+  float: right;
+}
+
+.example {
+  background: blue;
+  border: 2px solid #c63030;
+  height: 100px;
+}
+
+.bar-progress {
+  height: 30px;
+  width: 200px;
+  border: 1px solid #000;
+}
+
+.progress {
+  background: #c63030;
+  height: 100%;
+}
+
+
