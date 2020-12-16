@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue"></script>
+  </head>
+  <body>
+    <div id="app">
+      <p v-if="user.logged">Usuário logado: {{ user.name }}</p>
+      <p v-else="user.logged">Nenhum usuário logado</p>
+      <button @click="user.logged = !user.logged">{{ user.logged ? 'Sair' : 'Entrar' }}</button>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          user: {
+            name: 'felipesuri',
+            logged: false
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

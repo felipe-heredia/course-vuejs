@@ -271,3 +271,38 @@ Foram feitos diversos mini-desafios baseados nas aulas anteriores de Estilos.
 
 [Você pode ver o código feito aqui.](/dom/desafio-04)
 
+### 3 - Usando condicionais & Renderização de listas
+
+**Aula 42 - Renderização Condicional com v-if/v-else**
+
+Neste momento, queremos mostrar um parágrafo quando tiver um usuário logado ou outro parágrafo se não tiver nenhum usuário logado. Agora, entra uma propriedade do Vue chamada v-if.
+
+Vejamos o exemplo construido na aula:
+
+```html
+<p v-if="user.logged">Usuário logado: {{ user.name }}</p>
+<p v-else="user.logged">Nenhum usuário logado</p>
+```
+
+Neste caso, se _user.logged_ seja verdadeiro, será adicionado o primeiro parágrafo e o segundo será removido e vice-versa;
+
+A propriedade _v-else_ só irá funcionar caso a tag anterior tenha a propriedade _v-if_.
+
+Citado na próxima aula, também existe a propriedade _v-else-if_, que funciona da mesma forma que o if, porém ele precisa estar depois do if, também. Porém, caso o _v-if_ seja verdadeiro, o Vue irá ignorar todos os seguintes mesmo que também sejam verdadeiros.
+
+Caso queiramos verificar se uma variável é verdadeira e caso ela for queremos mostrar diversos itens, podemos colocar essa verificação dentro de uma tag chamado _template_, colocando essa tag, será mostrado os elementos que estão dentro dela, porém ela não será adicionada na página.
+
+```html
+<template v-if="user.logged">
+  <p>Usuário logado: {{ user.name }}</p>
+  <p>Perfil: Admin</p>
+</template>
+```
+
+Se o usuário estiver logado, ambos os parágrafos serão adicionados ao código, porém a tag _template_ não
+
+**Aula 46 - Esconda o elemento com v-show**
+
+Funcionando de forma parecida com o _v-if_ temos o _v-show_, porém, se fossemos utilizar ele nos exemplos anteriores, o v-show não removeria os elementos da tela, apenas iria esconder esses elementos utilizando CSS.
+
+O _v-show_ não possui algo como _v-show-else_, ou seja, para mostrarmos um elemento em determinado caso mas outro se não estivermos nesse determinado caso, precisaremos utilizar uma função para poder fazer a tratativa.
