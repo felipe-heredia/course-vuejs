@@ -306,3 +306,51 @@ Se o usuário estiver logado, ambos os parágrafos serão adicionados ao código
 Funcionando de forma parecida com o _v-if_ temos o _v-show_, porém, se fossemos utilizar ele nos exemplos anteriores, o v-show não removeria os elementos da tela, apenas iria esconder esses elementos utilizando CSS.
 
 O _v-show_ não possui algo como _v-show-else_, ou seja, para mostrarmos um elemento em determinado caso mas outro se não estivermos nesse determinado caso, precisaremos utilizar uma função para poder fazer a tratativa.
+
+**Aula 47 - Rederizando listas com v-for**
+
+Para renderizar listas, podemos utilizar a propriedade _v-for_, que iremos colocar o nome da variável que será recebida com o item e o array que queremos criar a lista, veja o exemplo:
+
+```html
+<li v-for="color in colors">{{ color }}</li>
+
+<script>
+  new Vue({
+    {...}
+    data: {
+      colors: ['red', 'green', 'yellow', 'blue'],  
+    },
+  })
+</script>
+```
+
+O v-for precisa ser chamado no elemento que será a base da lista não no elemento pai.
+
+Por exemplo, nesse caso chamamos na li, não na ul.
+
+**Aula 50 - Iterando em objetos**
+
+Podemos fazer um _v-for_ dentro de outro v-for, por exemplo:
+
+```html
+<li v-for="people in peoples">
+  <template v-for="(value, key, index) in people">
+    {{ key }}: {{ value }} ({{ index }})
+  </template>
+</li>
+
+<script>
+  new Vue({
+    {...}
+    data: {
+      peoples: [
+        { name: 'felipesuri', age: 16, peso: 50 },
+        { name: 'Francyne', age: 17, peso: 65 },
+        { name: 'Ana', age: 16, peso: 70 },
+      ]
+    }
+  })
+</script>
+```
+
+Assim, conseguimos acessar cada item dentro do objeto sem precisamos fazer coisas muito complexas, claro que não precisaríamos fazer isso, bastava fazer um _people.name_ para pegar o nome, mas se tivermos muitos itens e todos forem retornar de forma igual, fazer isso é mais fácil.
