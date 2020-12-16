@@ -354,3 +354,9 @@ Podemos fazer um _v-for_ dentro de outro v-for, por exemplo:
 ```
 
 Assim, conseguimos acessar cada item dentro do objeto sem precisamos fazer coisas muito complexas, claro que não precisaríamos fazer isso, bastava fazer um _people.name_ para pegar o nome, mas se tivermos muitos itens e todos forem retornar de forma igual, fazer isso é mais fácil.
+
+**Desafio 05 - Condicionais & Listas**
+
+Desafio simples utilizando os conceitos apresentados anteriormente.
+
+[Você pode ver o código do desafio aqui.](/condicionais-e-listas/desafio-05)
