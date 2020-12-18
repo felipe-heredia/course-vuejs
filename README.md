@@ -27,11 +27,11 @@ O Vue funciona de forma simples no HTML e JS, sem precisar baixar nada, basta vo
 Chamando um desses dois scripts, para podemos fazer com que o Vue funcione na nossa máquina local, para testes, vamos fazer o seguinte arquivo html.
 
 ```html title=introduction/primeira-appv1.html
-<script  src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>  
+<script  src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
 <div  id="app">
 <p>{{ title }}</p>
-</div> 
+</div>
 
 <script>
   new  Vue({
@@ -43,17 +43,17 @@ Chamando um desses dois scripts, para podemos fazer com que o Vue funcione na no
 </script>
 ```
 
-Este foi o código feito na primeira aula, neste caso, o el significa o elemento que estamos puxando, que é a div _ #app_, e o objeto data informa os dados que queremos passar, no caso a string que o _title_ recebe.
+Este foi o código feito na primeira aula, neste caso, o el significa o elemento que estamos puxando, que é a div _#app_, e o objeto data informa os dados que queremos passar, no caso a string que o _title_ recebe.
 
 **Aula 03**
 
 ```html title=introduction/primeira-appv2.html
-<script  src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>  
+<script  src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 
 <div  id="app">
   <input  type="text"  v-on:input="modifyTitle">
   <p>{{ title }}</p>
-</div> 
+</div>
 
 <script>
   new  Vue({
@@ -153,7 +153,7 @@ No conceito de methods dentro do Vue, sempre que qualquer coisa mudar na instân
 ```html
 <div  id="app">
   <p>Resultado: {{ result }}</p>
-</div>  
+</div>
 
 <script>
 new Vue({
@@ -318,7 +318,7 @@ Para renderizar listas, podemos utilizar a propriedade _v-for_, que iremos coloc
   new Vue({
     {...}
     data: {
-      colors: ['red', 'green', 'yellow', 'blue'],  
+      colors: ['red', 'green', 'yellow', 'blue'],
     },
   })
 </script>
@@ -360,3 +360,10 @@ Assim, conseguimos acessar cada item dentro do objeto sem precisamos fazer coisa
 Desafio simples utilizando os conceitos apresentados anteriormente.
 
 [Você pode ver o código do desafio aqui.](/condicionais-e-listas/desafio-05)
+
+### 4 - Projeto #01 -- Matador de Monstros
+
+Nesta sessão, obtive o desafio de construir um matador de monstros sozinho para depois,
+conforme as aulas ir refinando o código.
+
+[Você pode ver o código aqui.](/projeto-01-monstros)

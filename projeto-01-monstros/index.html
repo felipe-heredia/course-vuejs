@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Matador de Monstros</title>
+  </head>
+  <body>
+    <div id="app">
+      <div class="item" :style="{ justifyContent: 'space-around' }">
+        <div class="player-stats">
+          <p>Jogador</p>
+          <div class="life-bar">
+            <div
+              class="life"
+              :style="{
+                width: `${player.life}%`,
+                background: player.life > 20 ? player.color : '#c63030'
+              }"></div>
+          </div>
+          <p :style="{ marginTop: 0 }">{{ player.life }}%</p>
+        </div>
+
+        <div class="player-stats">
+          <p>Monstro</p>
+          <div class="life-bar">
+            <div
+              class="life"
+              :style="{
+                width: `${monster.life}%`,
+                background: monster.life > 20 ? monster.color : '#c63030'
+              }"></div>
+          </div>
+          <p :style="{ marginTop: 0 }">{{ monster.life }}%</p>
+        </div>
+      </div>
+
+      <div class="item" :style="{ justifyContent: 'center' }">
+        <button
+          class="button"
+          :style="{ background: '#606BBF' }"
+          @click="initGame"
+          v-if="!inGame"
+        >
+          Iniciar jogo
+        </button>
+
+        <template v-else>
+          <button
+          class="button"
+          :style="{ background: '#BD2C39' }"
+          @click="attack"
+          >
+          Ataque
+        </button>
+
+          <button
+          class="button"
+          :style="{ background: '#E7993F', color: '#000' }"
+          @click="specialAttack"
+          >
+          Ataque Especial
+        </button>
+          <button
+          class="button"
+          :style="{ background: '#56A642' }"
+          @click="heal"
+          >
+          Curar
+        </button>
+          <button
+          class="button"
+          :style="{ background: '#A8A8A8', color: '#000' }"
+          @click="quit"
+          >
+          Desistir
+        </button>
+      </template>
+      </div>
+
+      <div class="item" :style="{ 'flex-direction': 'column' }" v-if="gameLog.length >= 1">
+        <div class="logsWrapper" v-for="logs in gameLog">
+          <template v-for="(log, key) in logs">
+            <p
+              class="logItem"
+              :style="{ backgroundColor: '#D96C78' }"
+              v-if="key === 'monsterMessage'"
+            >
+              {{ log }}
+            </p>
+            <p
+              class="logItem"
+              :style="{ backgroundColor: '#848BC3' }"
+              v-if="key === 'playerMessage'"
+            >
+              {{ log }}
+            </p>
+          </template>
+        </div>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
