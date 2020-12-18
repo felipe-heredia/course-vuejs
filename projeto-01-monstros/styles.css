@@ -1,31 +1,77 @@
-.item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+html {
+  font-family: 'Roboto', sans-serif;
+}
 
-  border: 1px solid #E6E9EA;
-  border-radius: 5px;
+.panel {
   margin: 0 1rem 1rem;
   padding: 1rem;
+  border: 1px solid #E6E9EA;
+  border-radius: 5px;
   box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.14), 0px 2px 2px rgba(0, 0, 0, 0.12), 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
+/* Scores */
+
+.scores {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
 .player-stats {
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
+.player-stats h1 {
+  font-weight: 300;
+  font-size: 1.6rem;
+}
+
 .life-bar {
   height: 20px;
-  width: 300px;
+  width: 70%;
   border: 1px solid #000;
 }
 
 .life {
   height: 100%;
   max-width: 100%;
+  background: #2D942E;
+}
+
+.danger {
+  background: #c63030;
+}
+
+/* Resultados */
+
+.result {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.win {
+  color: green;
+}
+
+.lose {
+  color: red;
+}
+
+/* Controles do jogo */
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .button {
@@ -36,7 +82,7 @@
   border: none;
   text-transform: uppercase;
   color: #fff;
-  font-size: 14px;
+  font-size: 1rem;
 
   transition: 0.5s;
 }
@@ -47,21 +93,39 @@
   transform: scale(1.1);
 }
 
-.logsWrapper {
+/* Logs */
+
+.logs ul {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.log {
+  display: flex;
+  justify-content: center;
+  margin: 4px 0;
+  padding: 3px 0;
+  font-weight: 500;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  border-radius: 3px;
   width: 100%;
 }
 
-.logItem {
-  display: flex;
-  justify-content: center;
-  text-transform: uppercase;
+.player {
+  background: #4253afaa;
   color: #fff;
-  font-size: 18px;
-  margin: 5px 0 0;
+}
 
-  padding: 5px;
-  width: 500px;
+.monster {
+  background: #D96C78;
+  color: #fff;
+}
+
+.heal {
+  background: #56A642;
+  color: #fff;
 }

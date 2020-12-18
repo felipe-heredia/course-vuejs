@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <script src="https://unpkg.com/vue"></script>
     <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 
     <title>Matador de Monstros</title>
   </head>
   <body>
     <div id="app">
-      <div class="item" :style="{ justifyContent: 'space-around' }">
+      <div class="panel scores" :style="{ justifyContent: 'space-around' }">
         <div class="player-stats">
           <p>Jogador</p>
           <div class="life-bar">
             <div
               class="life"
-              :style="{
-                width: `${player.life}%`,
-                background: player.life > 20 ? player.color : '#c63030'
-              }"></div>
+              :class="{ danger: player.life < 20 }"
+              :style="{width: `${player.life}%`}"
+            >
+            </div>
           </div>
-          <p :style="{ marginTop: 0 }">{{ player.life }}%</p>
+          <p>{{ player.life }}%</p>
         </div>
 
         <div class="player-stats">
@@ -28,16 +30,21 @@
           <div class="life-bar">
             <div
               class="life"
-              :style="{
-                width: `${monster.life}%`,
-                background: monster.life > 20 ? monster.color : '#c63030'
-              }"></div>
+              :class="{ danger: monster.life < 20 }"
+              :style="{width: `${monster.life}%`}"
+            >
+            </div>
           </div>
-          <p :style="{ marginTop: 0 }">{{ monster.life }}%</p>
+          <p>{{ monster.life }}%</p>
         </div>
       </div>
 
-      <div class="item" :style="{ justifyContent: 'center' }">
+      <div v-if="hasResult" class="panel result">
+        <div v-if="monster.life === 0" class="win">Você ganhou :')</div>
+        <div v-else class="lose">Você perdeu :(</div>
+      </div>
+
+      <div class="panel buttons">
         <button
           class="button"
           :style="{ background: '#606BBF' }"
@@ -51,54 +58,43 @@
           <button
           class="button"
           :style="{ background: '#BD2C39' }"
-          @click="attack"
+          @click="attack(false)"
           >
-          Ataque
-        </button>
+            Ataque
+          </button>
 
           <button
           class="button"
           :style="{ background: '#E7993F', color: '#000' }"
-          @click="specialAttack"
+          @click="attack(true)"
           >
-          Ataque Especial
-        </button>
+            Ataque Especial
+          </button>
+
           <button
-          class="button"
-          :style="{ background: '#56A642' }"
-          @click="heal"
+            class="button"
+            :style="{ background: '#56A642' }"
+            @click="heal"
           >
-          Curar
-        </button>
+            Curar
+          </button>
+
           <button
           class="button"
           :style="{ background: '#A8A8A8', color: '#000' }"
           @click="quit"
           >
-          Desistir
-        </button>
-      </template>
+            Desistir
+          </button>
+        </template>
       </div>
 
-      <div class="item" :style="{ 'flex-direction': 'column' }" v-if="gameLog.length >= 1">
-        <div class="logsWrapper" v-for="logs in gameLog">
-          <template v-for="(log, key) in logs">
-            <p
-              class="logItem"
-              :style="{ backgroundColor: '#D96C78' }"
-              v-if="key === 'monsterMessage'"
-            >
-              {{ log }}
-            </p>
-            <p
-              class="logItem"
-              :style="{ backgroundColor: '#848BC3' }"
-              v-if="key === 'playerMessage'"
-            >
-              {{ log }}
-            </p>
-          </template>
-        </div>
+      <div class="panel logs" v-if="gameLog.length">
+        <ul>
+          <li v-for="log in gameLog" class="log" :class="log.className">
+            {{ log.text }}
+          </li>
+        </ul>
       </div>
     </div>
 

@@ -5,14 +5,15 @@ new Vue({
     gameLog: [],
     player: {
       life: 100,
-      color: '#2D942E',
-      power: 12
     },
     monster: {
       life: 100,
-      color: '#2D942E',
-      power: 18
     },
+  },
+  computed: {
+    hasResult() {
+      return this.player.life === 0 || this.monster.life === 0
+    }
   },
   methods: {
     initGame() {
@@ -21,80 +22,45 @@ new Vue({
       this.gameLog = []
       this.inGame = true
     },
-    attack() {
-      const monsterAttack = Math.floor(Math.random() * this.monster.power)
-      const playerAttack = Math.floor(Math.random() * this.player.power)
-
-      const attacks = {
-        monster: monsterAttack,
-        monsterMessage: `O Monstro atacou com ${monsterAttack}`,
-        player: playerAttack,
-        playerMessage: `O Jogador atacou com ${playerAttack}`
-      }
-
-      this.gameLog.push(attacks)
-
-      if (this.player.life - monsterAttack > 0 && this.monster.life - playerAttack > 0) {
-        this.player.life = this.player.life - monsterAttack
-        this.monster.life = this.monster.life - playerAttack
-      } else if (this.player.life - monsterAttack > 0) {
-        this.player.life = this.player.life - monsterAttack
-        this.monster.life = 0
-        this.inGame = false
-      } else {
-        this.player.life = 0
-        this.monster.life = this.monster.life - playerAttack
-        this.inGame = false
-      }
-    },
-    specialAttack() {
-      const monsterAttack = Math.floor(Math.random() * 10)
-      const playerAttack = Math.floor(Math.random() * 20)
-
-      const attacks = {
-        monster: monsterAttack,
-        monsterMessage: `O Monstro atacou com ${monsterAttack}`,
-        player: playerAttack,
-        playerMessage: `O Jogador atacou com ${playerAttack}`
-      }
-      this.gameLog.push(attacks)
-
-      if (this.player.life - monsterAttack > 0 && this.monster.life - playerAttack > 0) {
-        this.player.life = this.player.life - monsterAttack
-        this.monster.life = this.monster.life - playerAttack
-      } else if (this.player.life - monsterAttack > 0) {
-        this.player.life = this.player.life - monsterAttack
-        this.monster.life = 0
-        this.inGame = false
-      } else {
-        this.player.life = 0
-        this.monster.life = this.monster.life - playerAttack
-        this.inGame = false
-      }
-    },
-    heal() {
-      if (this.player.life < 100) {
-
-        const monsterAttack = Math.floor(Math.random() * 5)
-        const playerHeal = Math.floor(Math.random() * 9)
-
-        const log = {
-          monster: monsterAttack,
-          monsterMessage: `O Monstro atacou com ${monsterAttack}`,
-          player: playerHeal,
-          playerMessage: `O Jogador curou ${monsterAttack}`,
-        }
-
-        this.player.life = (this.player.life - monsterAttack) + log.player
-
-        this.gameLog.push(log)
-      }
-    },
     quit() {
       this.inGame = false
       this.monster.life = 100
       this.player.life = 100
       this.gameLog = []
+    },
+    getRandom(min, max) {
+      return Math.floor(Math.random() * (min - max) + min)
+    },
+    attack(special) {
+      this.hurt('monster', 5, 10, special, 'Jogador', 'Monster', 'player')
+
+      if (this.monster.life > 0) {
+        this.hurt('player', 7, 12, false, 'Monstro', 'Jogador', 'monster')
+      }
+    },
+    hurt(atr, min, max, special, source, target, className) {
+      const plus = special ? 5 : 0
+      const hurt = this.getRandom(min + plus, max + plus)
+
+      this[atr].life = Math.max(this[atr].life - hurt, 0)
+      this.registerLog(`${source} atingiu ${target} com ${hurt}.`, className)
+    },
+    heal() {
+      const heal = this.getRandom(10, 15)
+
+      if (this.player.life + heal <= 100) {
+        this.player.life = Math.min(this.player.life + heal, 100)
+        this.registerLog(`Jogador ganhou força de ${heal}.`, 'heal')
+        this.hurt('player', 7, 12, false, 'Monstro', 'Jogador', 'monster')
+      }
+    },
+    registerLog(text, className) {
+      this.gameLog.unshift({ text, className })
+    }
+  },
+  watch: {
+    hasResult(value) {
+      if (value) this.inGame = false
     }
   },
 })
