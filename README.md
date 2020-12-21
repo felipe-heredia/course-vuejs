@@ -367,3 +367,58 @@ Nesta sessão, obtive o desafio de construir um matador de monstros sozinho para
 conforme as aulas ir refinando o código.
 
 [Você pode ver o código aqui.](/projeto-01-monstros)
+
+### Módula 5 - Entendendo a Instância do Vue
+
+Neste módulo iremos pausar um pouco o desenvolvimento para entendermos como a
+instância do Vue funciona.
+
+É possível sim utilizar mais de uma instância Vue, porém não é o mais utilizado.
+
+**Aula 74 - Meu Vue Framework**
+
+Nesta aula desenvolvemos o nosso próprio Vue, claro que de forma bem básica,
+nada muito complexo.
+
+[Você pode ver o código aqui](/instancia-vue/meu-vue.html)
+
+**Aula 79 - Usando Componentes**
+
+Se quisermos utilizar um componente Vue, podemos setar usar a função Vue.component passando
+como parâmetros o nome do componente e um objeto que dentro estará uma Instância do Vue
+para o componente.
+
+```html
+<body>
+  <div id="app">
+    <comp></comp>
+  </div>
+
+  <script>
+    Vue.component('comp', {
+        template: `<h1>Componente</h1>`
+      })
+  </script>
+</body>
+```
+
+Neste caso, o template seria montado dentro da tag comp, que é o nome do componente,
+ele pode ser colocado diversas vezes dentro do nosso HTML, diferente de um template
+dentro de uma instância do Vue que só pode ser montada uma vez.
+
+Uma observação para se fazer é que o _data_ deve ser passado como uma função.
+
+**Aula 80 - Limitações dos templates**
+
+Nesta aula, foi conversado que os templates têm suas limitações e que iremos modificar
+a forma que iremos desenvolver nossas aplicações utilizando Vue Client.
+
+**Aula 83 - Ciclos de vida da Instância do Vue**
+
+Existe uma função no Vue que é para destruir, quando ela é chamada todos os watch, methods
+são limpos e não serão mais executados.
+
+Nesta aula, brincamos com alguns métodos da Instância, que alguns são _beforeCreate_, _created_,
+_beforeDestroy_, _destroyed_.
+
+[Você pode ver o código e os métodos aqui.](/instancia-vue/instancia-vue-ciclo-vida.html)
