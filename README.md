@@ -453,3 +453,32 @@ Para adicionar plugins ao projeto Vue, basta rodar o seguinte comando:
 ```bash
 ~$ vue add <nome_do_plugin>
 ```
+
+
+### Módulo 7 - Introdução aos componentes
+
+**Aula 102 - Registrar componente global e local**
+
+Nesta aula, aprendemos a forma de registrar componente global ou local.
+
+Utilizando o Vue.component, o componente será registrado em todas as instâncias do Vue
+naquele contexto, caso queiramos registrar apenas na instância marcada basta passar um
+atributo que é _components_, semelhante a _methods_ e _data_.
+
+```html
+<script>
+new Vue({
+  el: '#app1',
+  components: {
+    counter1: counter,
+  }
+})
+</script>
+```
+
+**Aula 107 - Hora de Praticar: Organizar Projeto em Componentes**
+
+Neste desafio, tenho que organizar os itens e transformá-los em componentes, dessa forma
+organizando melhor o código.
+
+[Você pode ver o código aqui.](/componentes/componente-desafio)
