@@ -441,3 +441,15 @@ Vamos seguir os passos abaixo para criar nosso primeiro projeto.
 
 Assim, será criado o nosso primeiro projeto com o Vue CLI, você pode vê-lo
 [aqui](/vue-cli/projeto-simples).
+
+**Aula 92 - Entendendo arquivos .vue**
+
+Este arquivo é cada um dos componentes da aplicação.
+
+**Aula 95 - Adicionando plugins ao projeto**
+
+Para adicionar plugins ao projeto Vue, basta rodar o seguinte comando:
+
+```bash
+~$ vue add <nome_do_plugin>
+```
