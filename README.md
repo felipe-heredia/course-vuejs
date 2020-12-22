@@ -368,7 +368,7 @@ conforme as aulas ir refinando o código.
 
 [Você pode ver o código aqui.](/projeto-01-monstros)
 
-### Módula 5 - Entendendo a Instância do Vue
+### Módulo 5 - Entendendo a Instância do Vue
 
 Neste módulo iremos pausar um pouco o desenvolvimento para entendermos como a
 instância do Vue funciona.
@@ -422,3 +422,22 @@ Nesta aula, brincamos com alguns métodos da Instância, que alguns são _before
 _beforeDestroy_, _destroyed_.
 
 [Você pode ver o código e os métodos aqui.](/instancia-vue/instancia-vue-ciclo-vida.html)
+
+### Módulo 6 - Fluxo de Desenvolvimento "Real" Usando Vue CLI
+
+A partir de agora, iremos criar projetos utilizando a CLI.
+
+Vamos seguir os passos abaixo para criar nosso primeiro projeto.
+
+```bash
+# Iremos instalar a CLI do Vue.
+
+~$ yarn global add @vue/cli
+
+# Agora iremos criar um projeto
+
+~$ vue create projeto-simples
+```
+
+Assim, será criado o nosso primeiro projeto com o Vue CLI, você pode vê-lo
+[aqui](/vue-cli/projeto-simples).
