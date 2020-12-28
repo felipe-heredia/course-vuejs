@@ -482,3 +482,155 @@ Neste desafio, tenho que organizar os itens e transformá-los em componentes, de
 organizando melhor o código.
 
 [Você pode ver o código aqui.](/componentes/componente-desafio)
+
+### Módulo 07 - Comunicação Entre Componentes
+
+**Aula 115 - Comunicação Direta com Props**
+
+A comunicação entre componente pai e filho se dá através das propriedades, semelhante a forma
+que é no React.
+
+No nosso script no arquivo _.vue_ passamos um objeto _props_ com as propriedades que iremos
+receber
+
+```js
+export default {
+  props: ['name']
+}
+```
+
+Já lá no componente pai, passamos a propriedade, desta forma:
+
+```html
+<!-- Passando de forma estática -->
+<componente name="Felipe"></componente>
+
+<!-- Passando como um data, para que conversem entre si -->
+
+<componente :name="Felipe"></componente>
+```
+
+**Aula 119 - Validando Props #01**
+
+Se quisermos validar as propriedades, é algo simples:
+
+```js
+export default {
+  props: {
+    name: {
+      type: String,
+      default: 'Anônimo',
+      required: true,
+    }
+  },
+}
+```
+
+Neste caso, a propriedade _name_ é uma string e é obrigatória, mas caso não seja passada,
+será impresso o valor padrão.
+
+**Aula 121 - Comunicação indireta com eventos personalizados**
+
+Caso queiramos monitonar no componente pai as mudanças feitas no filho, podemos fazer da
+seguinte forma:
+
+```html title='Componente Filho'
+<script>
+export default {
+  methods: {
+    resetName() {
+      this.name = 'Pedro'
+      this.$emit('changeName', this.name)
+    }
+  }
+}
+</script>
+```
+
+A primeira propriedade da função emit é o nome que será dado e na segunda prop é o dado que
+é modificado.
+
+```html title='Componente Pai'
+<componente :name="name" @changeName="name = $event" />
+```
+
+Como propriedade do componente pai, podemos chamar aquele nome dado na função $emit, nele
+nós recebemos o evento, que pode retornar diversas coisas, mas nesse caso está retornando
+apenas a string que queremos.
+
+**Aula 122 - Comunicação indireta com Callback**
+
+Para conversarmos entre o componente Filho e Pai, podemos passar uma função Callback,
+da seguinte forma:
+
+```html title='Componente Filho'
+<script>
+export default {
+  props: { resetFn: Function }
+}
+</script>
+```
+
+```html title='Componente Pai'
+<template>
+  <componente :resetFn="resetName" />
+</template>
+
+<script>
+export default {
+  methods: {
+    resetName() {
+      this.name = 'Pedro'
+    }
+  }
+}
+</script>
+```
+
+Desta forma, no componente filho em um botão, podemos passar a função resetFn que funcionará
+e transformará o nome novamente em Pedro.
+
+**Aula 126 - Usando Event Bus para Comunicação entre Componentes Irmãos**
+
+Podemos criar um outro arquivo no nosso projeto com o nome de barramento,
+ele será chamado em ambos os componentes filhos para podermos modificar os valores que
+desejamos.
+
+```js title=Barramento.js
+import Vue from 'vue'
+export default new Vue()
+```
+
+Então, importaremos ele no nosso script e faremos da seguinte forma no emissor da função:
+
+```js
+import barramento from '@/Barramento'
+
+export default {
+  ...,
+  methods: {
+    modifyAge() {
+      this.age = 33
+      barramento.$emit('changedAge', this.age)
+    }
+  }
+}
+```
+
+Já no outro componente onde vamos receber os dados, faremos o seguinte:
+
+```js
+import barramento from '@/Barramento'
+
+export default {
+  ...,
+  created() {
+    barramento.$on('changedAge', age => {
+      this.age = age
+    })
+  }
+}
+```
+
+Dessa forma, conseguimos mudar os dados sem precisar passar do filho para o pai e do pai
+para o outro filho.
