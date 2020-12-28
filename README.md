@@ -634,3 +634,9 @@ export default {
 
 Dessa forma, conseguimos mudar os dados sem precisar passar do filho para o pai e do pai
 para o outro filho.
+
+**Desafio 06 - Comunicação entre componentes**
+
+Este desafio foi relativamente simples com os conceitos aprendidos no módulo.
+
+[Você pode ver o código aqui.](/componentes-comunicacao/comunicacao-desafio)
