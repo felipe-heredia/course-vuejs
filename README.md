@@ -640,3 +640,101 @@ para o outro filho.
 Este desafio foi relativamente simples com os conceitos aprendidos no módulo.
 
 [Você pode ver o código aqui.](/componentes-comunicacao/comunicacao-desafio)
+
+### Módulo 9 - Uso avançado de componentes
+
+**Aula 136 - Passando Conteúdo com Slots**
+
+Para passarmos para o componente algo semelhante ao children do React, basta passarmos o
+que queremos, por exemplo uma tag _p_ e lá no componente que queremos que isso esteja dentro
+basta colocar uma tag _slot_:
+
+```html
+<template>
+  <Pai>
+    <p>Curso de Vue.js</p>
+  </Pai>
+</template>
+```
+
+```html title="Componente Pai"
+<template>
+  <div>
+    <h1>Qual é o curso dessa vez?</h1>
+    <slot></slot>
+  </div>
+</template>
+```
+
+Desta form o Vue irá subistituir a tag slot pelo que está no corpo do componente Pai.
+
+**Aula 138 - Usando múltiplos slots**
+
+Podemos passar diversos slots e nomear cada um para que cada um recebe um item X e não
+para que todos que forem passados sejam impressos.
+
+```html title="Componente Pai"
+</template>
+  <div class="citacao">
+    <slot name="autor"></slot>
+    <slot name="texto"></slot>
+    <slot name="fonte"></slot>
+  </div>
+<template>
+```
+
+```html
+<template>
+  <Pai>
+    <h1 slot="autor">{{ citacoes[index].autor }}</h1>
+    <p slot="texto">{{ citacoes[index].texto }}</p>
+    <h6 slot="fonte">{{ citacoes[index].fonte }}</h6>
+  </Pai>
+</template>
+```
+
+
+**Aula 141 - Alternando entre múltiplos componentes**
+
+Podemos utilizar componentes dinâmicos no Vue, assim mostrando um componente ou outro.
+
+```html
+<template>
+  <component :is="componente" />
+</template>
+
+<script>
+export default {
+  components: { Citacoes, Sobre },
+  data() {
+    return { componente: 'Citacoes' }
+  }
+}
+</script>
+```
+
+Desta forma o Vue interpretará a variável componente e irá nos devolver o componente que
+está sendo chamado pelo nome.
+
+**Aula 143 - Mantendo o componente dinâmico vivo**
+
+Caso você queira manter o componente sempre vivo, ou seja, não quer com que ele seja
+destruído sempre que você mudar a variável, basta passar uma tag por volta da tagc
+component que irá funcionar.
+
+```html
+<template>
+  <keep-alive>
+    <component :is="Citacoes">
+  </keep-alive>
+</template>
+```
+
+Desta forma, caso a variável que chama o componente seja modificada, o componente não será
+destruído e assim o "histórico" será mantido.
+
+**Desafio 07 - Slots e componentes dinâmicos**
+
+Desafio bem simples utilizando os conceitos aprendidos anteriormente.
+
+[Você pode ver o código do desafio aqui.](/componentes-avancado/comp-avancado-desafio)
