@@ -725,7 +725,7 @@ component que irá funcionar.
 ```html
 <template>
   <keep-alive>
-    <component :is="Citacoes">
+    <component :is="Citacoes"/>
   </keep-alive>
 </template>
 ```
@@ -738,3 +738,7 @@ destruído e assim o "histórico" será mantido.
 Desafio bem simples utilizando os conceitos aprendidos anteriormente.
 
 [Você pode ver o código do desafio aqui.](/componentes-avancado/comp-avancado-desafio)
+
+### Módulo 10 - Projeto #02 - Tarefas
+
+Projeto tarefas desenvolvido, [você pode ver o código aqui](/projeto-02-tarefas)
