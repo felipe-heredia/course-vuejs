@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <h1>Tarefas</h1>
-    <Progress :percent="percent" />
-    <NewTask :tasksArray="tasksArray" />
+    <Progress :progress="progress" />
+    <NewTask @taskAdded="addTask" />
 
     <p class="empty" v-if="tasksArray.length === 0">Você está em dia :')</p>
     <TasksWrapper v-else :tasksArray="tasksArray" @removeTask="deleteTask" />
@@ -25,11 +25,20 @@ export default {
   methods: {
     deleteTask(index) {
       this.tasksArray.splice(index, 1);
+    },
+
+    addTask(task) {
+      const sameName = item => item.taskName === task.taskName;
+      const reallyNew = this.tasksArray.filter(sameName).length == 0;
+
+      if (reallyNew) {
+        this.tasksArray.push(task);
+      }
     }
   },
 
   computed: {
-    percent() {
+    progress() {
       const total = this.tasksArray.length;
       const done = this.tasksArray.filter(task => task.state === "done").length;
       return Math.round((done / total) * 100) || 0;

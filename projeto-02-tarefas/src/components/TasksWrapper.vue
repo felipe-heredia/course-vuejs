@@ -19,9 +19,7 @@ export default {
       required: true,
       type: Array
     }
-  },
-
-  methods: {}
+  }
 };
 </script>
 

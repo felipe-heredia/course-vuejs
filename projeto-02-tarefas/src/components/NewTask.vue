@@ -11,13 +11,6 @@
 
 <script>
 export default {
-  props: {
-    tasksArray: {
-      required: true,
-      type: Array
-    }
-  },
-
   data() {
     return {
       task: { taskName: "", state: "pending" }
@@ -26,14 +19,7 @@ export default {
 
   methods: {
     add() {
-      const exists = this.tasksArray.find(
-        item => item.taskName === this.task.taskName
-      );
-
-      if (!exists) {
-        this.tasksArray.push(this.task);
-      }
-
+      this.$emit("taskAdded", this.task);
       this.task = { taskName: "", state: "pending" };
     }
   }
@@ -44,7 +30,7 @@ export default {
 .new-task {
   display: flex;
   flex-direction: row;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px solid #fff;
   margin-top: 2rem;
 }
@@ -53,20 +39,26 @@ export default {
   width: 30px;
   padding: 5px;
   background: #2196f3;
+  color: #fff;
+  font-size: 1rem;
 
   margin: 0;
   outline: none;
   border: none;
+  border-left: none;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .new-task input {
-  height: 40px;
+  height: 30px;
   width: 450px;
   padding: 10px;
 
   color: #fff;
   background: #fff2;
-  border-right: 1px solid #fff;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
   font-size: 1rem;
   border: none;
 }

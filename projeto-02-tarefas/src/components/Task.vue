@@ -1,6 +1,6 @@
 <template>
   <div class="task" :class="task.state" @click="handleModifyStatus(task.state)">
-    <span class="close" @click="$emit('removeTask', task)">X</span>
+    <span class="close" @click.stop="$emit('removeTask', task)">X</span>
     <p>{{ task.taskName }}</p>
   </div>
 </template>
@@ -30,11 +30,15 @@ export default {
   position: relative;
   cursor: pointer;
 
-  width: 350px;
-  height: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  width: 300px;
+  height: 130px;
   margin: 10px;
   border-radius: 5px;
-  font-size: 2rem;
+  font-size: 1.6rem;
   font-weight: 300;
 }
 
@@ -58,9 +62,7 @@ export default {
 }
 
 .close {
-  cursor: pointer;
   display: flex;
-  align-items: center;
   justify-content: center;
   position: absolute;
 

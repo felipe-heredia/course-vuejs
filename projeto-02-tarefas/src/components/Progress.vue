@@ -1,11 +1,11 @@
 <template>
   <div class="progress-wrapper">
-    <span class="value">{{ percent }}%</span>
+    <span class="value">{{ progress }}%</span>
     <div
       class="progress"
       :style="{
-        width: `${percent}%`,
-        background: percent <= 20 ? '#c63030' : '#4CAF50'
+        width: `${progress}%`,
+        background: progress <= 20 ? '#c63030' : '#4CAF50'
       }"
     />
   </div>
@@ -14,7 +14,7 @@
 <script>
 export default {
   props: {
-    percent: {
+    progress: {
       required: true,
       type: Number
     }
@@ -31,7 +31,7 @@ export default {
 
   width: 80%;
   height: 30px;
-  border-radius: 5px;
+  border-radius: 8px;
   border: 1px solid #fff;
 }
 
@@ -46,7 +46,7 @@ export default {
   max-width: 100%;
 
   height: 30px;
-  border-radius: 5px;
+  border-radius: 8px;
   background: #4caf50;
 }
 </style>
