@@ -742,3 +742,11 @@ Desafio bem simples utilizando os conceitos aprendidos anteriormente.
 ### Módulo 10 - Projeto #02 - Tarefas
 
 Projeto tarefas desenvolvido, [você pode ver o código aqui](/projeto-02-tarefas)
+
+### Módulo 11 - Formulários
+
+**Desafio 08 - Formulários**
+
+Desafio simples utilizando os conceitos aprendidos no módulo 11.
+
+[Você pode ver o código do desafio aqui.](/formulario/desafio)
