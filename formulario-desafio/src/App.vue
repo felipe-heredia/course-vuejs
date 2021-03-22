@@ -24,10 +24,21 @@
       <div class="panel" v-else>
         <div class="header">Resultado</div>
 
-        <p>{{ form.fullName }}</p>
-        <p>{{ form.email }}</p>
-        <p>{{ form.password }}</p>
-        <p>{{ form.backup }}</p>
+        <Rotulo name="Nome Completo">
+          <span>{{ form.fullName }}</span>
+        </Rotulo>
+
+        <Rotulo name="Email">
+          <span>{{ form.email }}</span>
+        </Rotulo>
+
+        <Rotulo name="Senha">
+          <span>{{ form.senha }}</span>
+        </Rotulo>
+
+        <Rotulo name="Armazenar dados?">
+          <span>{{ form.backup }}</span>
+        </Rotulo>
       </div>
     </div>
   </div>
@@ -45,19 +56,19 @@ export default {
     return {
       send: false,
       form: {
-        fullName: null,
+        fullName: "",
         name: {},
-        email: null,
-        password: null,
+        email: "",
+        password: "",
         backup: false
       }
     };
   },
 
   methods: {
-    handleUpdateName($event) {
-      this.form.name = $event;
-      this.form.fullName = `${$event.firstName} ${$event.secondName}`;
+    handleUpdateName(name) {
+      this.form.name = name;
+      this.form.fullName = `${name.firstName} ${name.secondName}`;
     }
   }
 };
