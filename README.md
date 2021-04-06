@@ -750,3 +750,126 @@ Projeto tarefas desenvolvido, [você pode ver o código aqui](/projeto-02-tarefa
 Desafio simples utilizando os conceitos aprendidos no módulo 11.
 
 [Você pode ver o código do desafio aqui.](/formulario/desafio)
+
+## Módulo 12 - Usando e criando diretivas
+
+Uma diretiva *v-text* vai fazer com que o texto seja inserido dentro com componente. Ou seja será o conteúdo do exemplo abaixo.
+
+```html
+<template>
+	<p v-text="'Usando uma diretiva'"></p>
+</template>
+```
+
+**Como criar uma diretiva personalizada:**
+
+```js
+Vue.directive('destaque', {})
+```
+
+Um objeto de definição de diretiva pode prover algumas funções de gatilhos (todas opcionais):
+
+- `bind`: chamada apenas uma vez, quando a directiva é  interligada pela primeira vez ao elemento. Aí é onde você pode fazer o  trabalho de configuração inicial.
+- `inserted`: chamada quando o elemento for inserido no nó pai (garante a presença no nó pai, mas não necessariamente no documento).
+- `update`: chamada após a atualização do VNode que contém o componente, **mas possivelmente antes da atualização de seus filhos**. O valor da diretiva pode ou não ter mudado, mas você pode evitar  atualizações desnecessárias comparando os valores atuais com os antigos  (veja abaixo, em argumentos dos gatilhos).
+- `componentUpdated`: chamada após a atualização do Vnode que contém o componente, **inclusive de seus filhos**.]
+- `unbind`: chamada somente uma vez, quando a diretiva é desvinculada do elemento.
+
+Iremos a seguir explorar os argumentos que podem ser passados nessas funções de gatilho (`el`, `binding`, `vnode`, e `oldVnode`).
+
+Os seguintes argumentos são esperados nas funções de gatilho das diretivas:
+
+- `el`: O elemento a que a diretiva está vinculada. Isso pode ser usado para manipular o DOM diretamente.
+- binding: Um objeto contendo as diversas propriedades.
+- `vnode`: O nó virtual produzido pelo compilador do Vue.
+- `oldVnode`: O nó virtual anterior, somente disponível em `update` e `componentUpdated`.
+
+**Com excussão do el, todos os outros elementos devem ser tratados apenas como leitura.**
+
+**Como passar valores para as diretivas:**
+
+Os valores que virão da diretivas virá de `binding.value`, você tratará esse valor como desejar, por exemplo:
+
+```js
+bind(el, binding) {
+  el.style.background = binding.value
+}
+```
+
+```html
+<p v-destaque="'red'">Diretiva personalizada</p>
+<!-- Dessa forma, o background do parágrafo será vermelho -->
+```
+
+**Passando argumentos para a diretiva:**
+
+Argumentos funcionam como o `:click` que é um argumento do v-on.
+
+```html
+<p v-destaque:fundo="'red'">Diretiva personalizada</p>
+```
+
+```js
+bind(el, biding) {
+  if (binding.arg === "fundo") {
+    el.style.background = binding.value
+  }
+
+  // Dessa forma, apenas se receber o argumento fundo a cor será passada no background
+}
+```
+
+**Modificando diretivas personalizadas com modificadores:**
+
+Diferente dos argumentos que pode se passado apenas um por vez, os modificadores podem ser chamados diversos para o mesmo componente.
+
+```html
+<p v-destaque:fundo.atrasar>Diretiva personalizada</p>
+```
+
+```js
+let delay = 0
+if (binding.modifiers['atrasar']) delay = 3000
+
+// Dessa forma, a string delay receberá um número de 3000
+```
+
+**Registrando diretivas localmente:**
+
+```js
+export default {
+  directives: {
+    'destaque-local': {
+      ...
+    }
+  },
+}
+    
+// Dessa forma funcionam as diretivas locais
+```
+
+**Usando múltiplos modificadores:**
+
+Passar múltiplos modificadores não é algo complexo, basta adicionar `.modificador`:
+
+```html
+<p v-destaque:fundo.atrasar.alternar>Diretiva personalizada</p>
+```
+
+**Passando valores mais complexos para as diretivas:**
+
+```html
+<p v-destaque:fundo.alternar="{ color1: 'red', color2: 'purple' }">
+  Diretiva personalizada
+</p>
+```
+
+```js
+destaque: {
+  bind(el, binding) {
+    console.log(binding.value)
+    // Nesse caso sera impresso o objeto colocado nas propriedades do HTML acima.
+  }
+}
+```
+
