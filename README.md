@@ -873,3 +873,8 @@ destaque: {
 }
 ```
 
+**Desafio 09 - Diretivas Personalizadas**
+
+Desafio simples, que foi resolvido utilizando os conceitos ensinados no módulo 12.
+
+[Você pode ver o código do desafio aqui.](/diretivas/diretivas-desafio/)
