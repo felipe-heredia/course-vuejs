@@ -1,3 +1,5 @@
+
+
 # Curso de Vue.js
 
 ## O que é Vue.js?
@@ -878,3 +880,100 @@ destaque: {
 Desafio simples, que foi resolvido utilizando os conceitos ensinados no módulo 12.
 
 [Você pode ver o código do desafio aqui.](/diretivas/diretivas-desafio/)
+
+## Módulo 13 - Filtros e Mixins
+
+Filtros são transformações que você pode fazer em alguns valores. Mixins são técnicas de reuso baseado em composição.
+
+Como criar filtro localmente:
+
+```
+<template>
+  <p>{{ user.cpf | cpf }}
+</template>
+
+<script>
+export default {
+  data() {
+  	return {
+  	  user: {
+	    cpf: '94309898911'
+	  },
+  	},
+  },
+  
+  filters: {
+    cpf(value) {
+      ...
+    }
+  }
+}
+</script>
+```
+
+No HTML, primeiro é passa a string que desejamos fazer o filtro, seguida de um `|` e o nome dos filtros que vamos passar, dessa forma o filtro será aplicado e será mostrado a string com o filtro.
+
+Para ir adicionando mais filtros, basta adicionar mais `|`e o nome do filtro.
+
+```html
+<input type="text" :value="meuCpf | cpf" />
+```
+
+Dessa forma acima, o filtro CPF será aplicado na string do input meuCpf. Isso precisa ser feito no :value, o v-model não suporta essa estrutura.
+
+Podemos evitar duplicação de conteúdos utilizando um mixin reutilizável em nossa aplicação, veja abaixo:
+
+```js
+// FruitsMixin.js
+
+export default {
+  data() {
+    return {
+      fruit: "",
+      fruits: ["Banana", "Maça", "Laranja"]
+    };
+  },
+
+  methods: {
+    add() {
+      this.fruits.push(this.fruit);
+      this.fruit = "";
+    }
+  }
+};
+
+```
+
+Dessa forma, podemos reaproveitar esse código acima importando o arquivo JavaScript e colocando dentro do array "mixins", sem precisar nos preocupar com criar outra propriedade data()
+
+```vue
+// App.vue
+
+<template>
+  <div>
+    <ul>
+      <li v-for="fruit in fruits" :key="fruit">{{ fruit }}</li>
+    </ul>
+
+    <input type="text" v-model="fruit" @keydown.enter="add" />
+  </div>
+</template>
+
+<script>
+import FruitsMixin from "./FruitsMixin";
+
+export default {
+  mixins: [FruitsMixin]
+};
+</script>
+```
+
+Mesmo utilizando o mesmo mixin, não haverá conflito entre os dados se o mixin for utilizado em outro componente.
+Porém caso existe um array fruits dentro do App.vue, a prioridade será do item dentro do componente não o que vêm do mixin.
+
+O mixin é uma mistura com a sua instância Vue atual.
+
+*Podemos criar um mixin global através do Vue.mixin({}).
+
+O Desafio foi entregue de forma simples, [você pode ver o código do desafio aqui.](filtros-mixins/filtros-mixins-desafio)
+
