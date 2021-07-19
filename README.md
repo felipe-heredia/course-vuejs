@@ -753,7 +753,7 @@ Desafio simples utilizando os conceitos aprendidos no módulo 11.
 
 [Você pode ver o código do desafio aqui.](/formulario/desafio)
 
-## Módulo 12 - Usando e criando diretivas
+### Módulo 12 - Usando e criando diretivas
 
 Uma diretiva *v-text* vai fazer com que o texto seja inserido dentro com componente. Ou seja será o conteúdo do exemplo abaixo.
 
@@ -881,7 +881,7 @@ Desafio simples, que foi resolvido utilizando os conceitos ensinados no módulo 
 
 [Você pode ver o código do desafio aqui.](/diretivas/diretivas-desafio/)
 
-## Módulo 13 - Filtros e Mixins
+### Módulo 13 - Filtros e Mixins
 
 Filtros são transformações que você pode fazer em alguns valores. Mixins são técnicas de reuso baseado em composição.
 
@@ -977,3 +977,217 @@ O mixin é uma mistura com a sua instância Vue atual.
 
 O Desafio foi entregue de forma simples, [você pode ver o código do desafio aqui.](filtros-mixins/filtros-mixins-desafio)
 
+### Módulo 13 - Animações e Transições
+
+Nesse módulo utilizaremos o [bootstrap-vue](https://bootstrap-vue.org/) para trabalhar com animações no nosso projeto.
+Não entrarei em explicações sobre a biblioteca Bootsrtap-Vue nessa documentação, não acho uma boa biblioteca por conta dos nomes não serem tão intuitivos, me atentarei ao que for utilizado do Vue puro.
+
+ Para trabalhar com animações do Vue, precisamos envolver o componente que desejamos animar dentro de uma tag </transition>, como no exemplo abaixo:
+
+```
+<template>
+	<transition>
+		<p>Mensagem animada!</p>
+	</transition>
+</template>
+```
+
+Dessa forma ainda não temos animação, mas essa é a base para podermos ter animações.
+
+#### Transições com Classes CSS
+
+Quando o objetivo é fazer uma transição ao mostrar um elemento, temos três classes CSS que podemos manipular, sendo elas:
+
+- `*-enter`:
+  Essa será o estado inicial e o padrão dela é `*-enter`, caso você não coloque nenhum nome, o nome será `v-enter`, caso o nome seja "especial" ficará: `especial-enter`.
+- `*-enter-active`:
+  Essa será chamada enquanto o processo de animação estiver ocorrendo. O Padrão de nome funciona da mesma forma da anterior.
+- `*-enter-to`:
+  Essa será chamada quando o processo de animação estiver finalizado.
+
+Existem outras três classes para quando o elemento é retirado da tela:
+
+- `*-leave`:
+  Essa é o estado inicial de quando o item for removido da tela.
+- `*-leave-active`:
+  Essa será a chamada enquanto o processo de remoção do item estiver ocorrendo.
+- `*-leave-to`:
+  Essa classe representa o estado final do componente, ou seja, quando o processo de remoção for finalizado.
+
+Caso eu utilize a tag `transition` sem nenhum nome,  a nomenclatura de classes será a seguinte:
+
+```vue
+<style>
+.v-enter {...}
+.v-leave {...}	
+</style>
+```
+
+Caso utilize nome como por exemplo `fade`, será feito da seguinte forma:
+
+```vue
+<template>
+	<transition name="fade">
+  	<p>Mensagem de alerta!</p>
+  </transition>
+</template>
+
+<style>
+  .fade-enter {}
+  .fade-enter-active {}
+  .fade-enter-to {}
+  .fade-leave {}
+  .fade-leave-active {}
+  .fade-leave-to {}
+</style>
+```
+
+Para fazer animações usamos o que sabemos de CSS, não entrarei nesse mérito aqui.
+
+Por padrão as classes `v-enter-to` e `v-leave` têm a opacidade 1.
+
+Utilizando a propriedade `type` nós podemos definir quem mandará no tempo, seja *animation ou transition*, dessa forma se definirmos o *animation* como o principal, mesmo que após o *animation* cintinue uma *transition*, o elemento seguirá a animação e irá ignorar o tempo total da *transition*. O Type irá te ajudar a resolver problemas com animações e transições com tempos diferentes.
+
+A propriedade `appear` fará com que a animação seja feita no momento em que sua aplicação for carregada. Isso serve para quando o item será mostrado mesmo sem interagir com a página.
+
+Você pode utilizar classes diferentes em sua transição, basta usar `animação-class`, por exemplo: `enter-class=""` e colocar o nome da classe
+
+Dentro da tag `transition` só pode ser mostrado um único elemento por vez.
+
+Caso tenhamos dois itens que serão mostrados ou não dependendo de um v-if dentro do transition, podemos fazer o seguinte:
+
+```vue
+<template>
+  <transition name="fade" mode="out-in">
+    <p v-if="show" key="1">Mensagem 1</p>
+		<p v-else key="2">Mensagem 2</p>
+  </transition>
+</template>
+```
+
+Precisamos colocar a propriedade `key` para identificar os dois itens.
+
+*A propriedade `mode` na tag transition serve para aguardar um item sair para o outro entrar e a animação não ficar com problemas.*
+
+#### Transições com JavaScript
+
+O princípio é o mesmo que em transições com CSS, vejamos os métodos de entrada:
+
+- `before-enter` como o próprio nome já diz, ocorre antes da entrada
+- `enter` método chamado quando o componente está entrando.
+- `after-enter` método chamado depois da entrada do componente.
+- `enter-cancelled` esse método será chamado no momento em que a transição for cancelada
+
+Métodos de saída:
+
+- `before-leave`, método chamado antes da saída do componente.
+- `leave` método chamado durante a saída do componente.
+- `after-leave` método chamado após a saída do componente.
+- `leave-cancelled` método chamado quando a saída é cancelada.
+
+
+Todos os métodos recebem o elemento, já os métodos `enter e leave` recebem uma função (done), que será chamada quando a animação for concluída e ele precisa ser chamado.
+
+Caso você queira excluir o CSS de sua animação e utilizar apenas JavaScript, você pode fazer o seguinte:
+
+```vue
+<template>
+	<transition :css="false">
+  	<p>Mensagem de aviso!</p>
+  </transition>
+</template>
+```
+
+Vamos fazer um exemplo que modificará a largura de uma caixa conforme clicarmos em um botão:
+
+```vue
+<template>
+	<div>
+    <button @click="show = !show">Alterar</button>
+
+    <transition 
+      :css="false"
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @before-leave="beforeLeave"
+      @leave="leave"
+    >
+			<div class="box" v-if="show"></div>
+  	</transition>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      show: false,
+      baseWidth: 0
+    };
+  },
+
+  methods: {
+    animate(element, done, negative) {
+      let round = 1;
+
+      const timer = setInterval(() => {
+        const newWidth = this.baseWidth + (negative ? -round * 10 : round * 10);
+
+        element.style.width = `${newWidth}px`;
+        round++;
+
+        if (round > 30) {
+          clearInterval(timer);
+          done();
+        }
+      }, 40);
+    },
+
+    beforeEnter(element) {
+      this.baseWidth = 0;
+      element.style.width = `${this.baseWidth}px`;
+    },
+
+    enter(element, done) {
+      this.animate(element, done, false);
+    },
+
+    beforeLeave(element) {
+      this.baseWidth = 300;
+      element.style.width = `${this.baseWidth}px`;
+    },
+
+    leave(element, done) {
+      this.animate(element, done, true);
+    }
+  }
+};
+</script>
+```
+
+Dessa forma fizemos uma animação sem precisar utilizar CSS, apenas utilizando Javascript.
+
+#### Animações em grupos
+
+Para fazer animações em grupos, você envolverá o seu grupo na tag `transition-group`, porém todos os componentes filhos precisam ter a propriedade `key` para que haja identificação.
+
+```vue
+<template> 
+  <transition-group name="slide" tag="div">
+    <b-list-group v-for="(student, index) in students" :key="student">
+      <b-list-group-item @click="removeStudent(index)">
+        {{ student }}
+      </b-list-group-item>
+    </b-list-group>
+</template>
+
+<style>
+  .slide-move {
+    transition: transform 1s;
+  }
+</style>
+```
+
+Por padrão, o transition-group cria um *span* por volta dos componentes filhos, porém você pode escolher qual será o componente pai passando a propriedade `tag`.
+
+Para a animação ficar melhor, você precisa criar a classe css `animação-move`, no caso do *transform* o próprio Vue saberá identificar se será no eixo X ou Y.
