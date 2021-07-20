@@ -1191,3 +1191,7 @@ Para fazer animações em grupos, você envolverá o seu grupo na tag `transitio
 Por padrão, o transition-group cria um *span* por volta dos componentes filhos, porém você pode escolher qual será o componente pai passando a propriedade `tag`.
 
 Para a animação ficar melhor, você precisa criar a classe css `animação-move`, no caso do *transform* o próprio Vue saberá identificar se será no eixo X ou Y.
+
+### Super Quiz
+
+Desafio simples mas que foi feito de forma rápida e a resuloção está um pouco diferente da mostrada no 
