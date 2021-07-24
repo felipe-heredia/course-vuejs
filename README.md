@@ -1195,3 +1195,107 @@ Para a animação ficar melhor, você precisa criar a classe css `animação-mov
 ### Super Quiz
 
 Desafio simples mas que foi feito de forma rápida e a resuloção está um pouco diferente da mostrada no 
+
+### Módulo 15 - Conexão com Backend
+
+Nesse módulo vamos instalar e usar o cliente HTTP Axios.
+
+No exemplo do curso foi criado um backend através do Firebase, não irei abordar os detalhes dessas aulas visto que não é o objetivo desse documento.
+
+#### Criando Instância do Axios
+
+Para podermos utilizar o axios, vamos criar um plugin na pasta `src/plugins/`
+
+```js
+// src/plugins/axios.js
+
+import Vue from "vue";
+import axios from "axios";
+
+axios.defaults.baseURL =
+  "https://teste.firebaseio.com/";
+
+Vue.use({
+  install(Vue) {
+    Vue.prototype.$http = axios;
+  }
+});
+```
+
+Dessa forma, basta importarmos o arquivo axios.js dentro do nosso src/main.js.
+Após importar o axios no main, para fazermos uma chamada na API basta fazer o seguinte:
+
+```vue
+<script>
+export default {
+	created() {
+		this.$http.post('users', {
+			name: 'Felipe',
+			age: 32
+		})
+	}
+}
+</script>
+```
+
+Dessa forma estamos criando um usuário no Firebase. Chamamos `this.$http` pois foi esse o nome dado no plugin axios.js.
+
+#### Acessando Axios Localmente
+
+Caso você queira acessar o Axios e criar uma configuração apenas naquele arquivo, você pode fazer de maneira simples:
+
+```vue
+<script>
+import axios from 'axios'
+ 
+export default {
+  created() {
+    axios.get('https://api.com/user').then(response => this.user = response.data)
+  }
+}
+</script>
+```
+
+### Interceptando Requisições
+
+Caso você deseje fazer algo na sua aplicação antes de executar uma requisição, você pode fazer da seguinte forma:
+
+```js
+// src/plugins/axios.js
+{,,,}
+install(Vue) {
+  Vue.prototype.$http = axios;
+
+  Vue.prototype.$http.interceptors.request.use(config => {
+    console.log(config.method);
+    return config;
+  }, error => Promisse.reject(error));
+}
+```
+
+Dessa forma, sempre, antes de ser feita uma requisição, será feito um console.log do método utilizado na requisição.
+**Você precisa retornar o config para que a requisição seja concluída.**
+
+### Interceptando Respostas
+
+Para interceptar a resposta de uma requisição, o processo é bem semelhante:
+
+```js
+// src/plugins/axios.js
+
+{...}
+install(Vue) {
+	...
+	
+	Vue.prototype.$http.interceptors.response.use(response => {
+    const array =  []
+    for (let key in response.data) {
+      array.push({ id: key, ...response.data[key] })
+    }
+    
+    response.data = array
+    return response
+  }, error => Promisse.reject(error))
+}
+```
+
