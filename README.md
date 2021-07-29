@@ -1,5 +1,3 @@
-
-
 # Curso de Vue.js
 
 ## O que é Vue.js?
@@ -1299,3 +1297,45 @@ install(Vue) {
 }
 ```
 
+### Headers Globais
+
+Caso deseje passar headers globais como por exemplo o *Authorization*, você pode fazer da forma abaixo:
+
+```js
+// src/plugins/axios.js
+
+install(Vue) {
+  ...
+  
+  Vue.prototype.$http = axios.create({
+    baseURL: 'https://example.com',
+    headers: {
+      get: {
+        "Authorization": "token"
+      }
+    }
+  });
+}
+```
+
+Nesse exemplo acima, o *Authorization* seria enviado apenas nas requisições get, caso queira passar em todas as requisições, basta coloca-lô para fora do objeto get.
+
+### Headers Locais
+
+Caso você deseje trabalhar com headers de forma local, ou seja apenas naquele arquivo, você pode fazer da seguinte forma:
+
+```vue
+<script>
+export defauxlt {
+  methods: {
+    getUser() {
+      {...}
+      
+      this.$http.default.headers.commom['Authorization'] = 'token'
+    }
+  }
+}
+</script>
+```
+
+Dessa forma, o *Authorization* ficará em todas as requisições feitas por esse arquivo.
